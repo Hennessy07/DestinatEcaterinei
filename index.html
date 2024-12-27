@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destinat Ecaterinei</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #1a1a2e;
+            color: #f4f4f4;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .play-button {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1a1a2e;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        .play-button:hover {
+            background: rgba(255, 255, 255, 1);
+        }
+        .pause-button {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            padding: 8px 16px;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #1a1a2e;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+        }
+        .pause-button:hover {
+            background: rgba(255, 255, 255, 1);
+        }
+        .slideshow {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            text-align: center;
+            background: linear-gradient(to bottom, rgba(26,26,46,1) 0%, rgba(0,0,0,1) 100%), url('moonlight.jpg') center/cover no-repeat;
+            visibility: hidden;
+        }
+        .slide {
+            position: absolute;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            padding: 20px;
+            max-width: 90%;
+            margin: 0 auto;
+        }
+        .slide.active {
+            opacity: 1;
+        }
+        .quote {
+            font-size: 1.4rem;
+            font-style: italic;
+            color: #f4f4f4;
+            margin-top: 20px;
+        }
+        .author {
+            font-size: 1.2rem;
+            font-weight: normal;
+            margin-top: 15px;
+            color: #f4f4f4;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 5px;
+            border-radius: 5px;
+        }
+        audio {
+            display: none;
+        }
+        
+        .slide.zoom {
+            transform: scale(1);
+            transition: transform 30s ease-in-out; 
+        }
+
+        .slide.zoom.active {
+            transform: scale(1.5); 
+        }
+    </style>
+</head>
+<body>
+    <button class="play-button" onclick="startSlideshow()">Porneste Slideshowul</button>
+    <button class="pause-button" style="display: block;" onclick="toggleMusic()">Pune pauza</button>
+    <div class="slideshow">
+        <div class="slide active" data-start="0" data-end="15">
+            Mana ta e rece, a mea arde ca focul. Cat de oarba sa fii, Nastenka!
+            <div class="quote">Nopti Albe, Fyodor Dostoevsky</div>
+        </div>
+        <div class="slide" data-start="16" data-end="25">
+            Ma urasti? Imi pun intrebarea asta tot mai des. Iar daca da, de ce ma urasti asa mult? <br>
+            As da orice sa mai pot discuta cu tine asta. Ideea e ca nu mai conteaza.
+        </div>
+        <div class="slide" data-start="26" data-end="35">
+            Nu mai ai vreo responsabilitate fata de mine.
+        </div>
+        <div class="slide" data-start="36" data-end="45">
+            N-o sa mai fiu egoist. Esti cea mai importanta persoana din viata mea. Si daca altcineva te poate face fericita, sunt impacat cu asta.
+        </div>
+        <div class="slide" data-start="46" data-end="55">
+            La inceput am incercat sa iti castig atentia printr-un bilet cu un citat. Acum voi incheia tot cu un bilet.
+        </div>
+        <div class="slide" data-start="56" data-end="65">
+            Ma voi despartii de situatie. Cu toate ca am un gol imens in stomac doar cand ma gandesc ca ar trebuii sa ating o alta fata.
+        </div>
+        <div class="slide" data-start="66" data-end="75">
+            Esti singura in care am avut incredere sa ma vezi vulnerabil. In orice fel.
+        </div>
+        <div class="slide" data-start="76" data-end="85">
+            Pentru mine un barbat adevarat lupta ca femeia lui sa fie in siguranta fara prezenta lui. <br>
+            Si o va lasa sa fie vulnerabila fara sa profite de vulnerabilitatea ei.
+            
+        </div>
+        <div class="slide" data-start="86" data-end="95">
+            Fiecare bilet de mai apoi a reprezentat traseul sentimentelor mele pentru tine. Si reprezinta si amintiri..si ca vorbeam de amintiri.
+        </div>
+        <div class="slide" data-start="96" data-end="105">
+            Amintirea pe care o pretuiesc cel mai mult e cea in care vorbeam despre cum am fii facut dansul mirilor pe melodia asta.
+        </div>
+        <div class="slide" data-start="106" data-end="115">
+            Chiar daca nu o vei mai face cu mine, imi doresc incontinuare sa o faci.
+        </div>
+        <div class="slide zoom" data-start="114" data-end="143">
+            Cu persoana pe care o iubesti cu adevarat
+        </div>
+        <div class="slide" data-start="144" data-end="157">
+            "-Ma iubesti? <br>
+             -Mult!"
+        </div>
+        <div class="slide" data-start="158" data-end="171">
+            Cu toate ca imi doresc sa ne revedem la urmatoarea eclipsa, Luna mea, nu mai este cazul.
+        </div>
+        <div class="slide" data-start="172" data-end="177">
+            Ramai cu bine!
+        </div>
+    </div>
+    <audio>
+        <source src="Stand By Me.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const audio = document.querySelector('audio');
+        const slideshow = document.querySelector('.slideshow');
+        const playButton = document.querySelector('.play-button');
+        const pauseButton = document.querySelector('.pause-button');
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[index].classList.add('active');
+        }
+
+        function startSlideshow() {
+            audio.play();
+            slideshow.style.visibility = 'visible';
+            playButton.style.display = 'none';
+            pauseButton.style.display = 'block';
+
+            slides.forEach((slide, index) => {
+                let startTime = parseInt(slide.getAttribute('data-start'));
+                let endTime = parseInt(slide.getAttribute('data-end'));
+
+                setTimeout(() => {
+                    showSlide(index);
+                    if (index === slides.length - 1) {
+                        slide.classList.add('zoom');
+                    }
+                }, startTime * 1000);
+
+                setTimeout(() => {
+                    slide.classList.remove('active');
+                    slide.classList.remove('zoom');
+                }, endTime * 1000);
+            });
+
+            const lastSlideEndTime = parseInt(slides[slides.length - 1].getAttribute('data-end'));
+            setTimeout(() => {
+                window.location.href = 'https://www.youtube.com/watch?v=kiM9s3brIKI';
+            }, (lastSlideEndTime + 5) * 1000);
+        }
+
+        function toggleMusic() {
+            if (audio.paused) {
+                audio.play();
+                pauseButton.textContent = 'Pauza';
+            } else {
+                audio.pause();
+                pauseButton.textContent = 'Porneste Slideshow-ul';
+            }
+        }
+    </script>
+</body>
+</html>
